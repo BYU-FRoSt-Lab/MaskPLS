@@ -44,7 +44,8 @@ def main(w, save_testset, nuscenes):
     w = torch.load(w, map_location="cpu")
     model.load_state_dict(w["state_dict"])
 
-    trainer = Trainer(gpus=cfg.TRAIN.N_GPUS, logger=False)
+    # trainer = Trainer(gpus=cfg.TRAIN.N_GPUS, logger=False)
+    trainer = Trainer(devices=cfg.TRAIN.N_GPUS, accelerator="gpu", logger=False)
 
     if save_testset:
         trainer.test(model, data)

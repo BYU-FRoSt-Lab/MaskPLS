@@ -6,7 +6,8 @@ from mask_pls.models.decoder import MaskedTransformerDecoder
 from mask_pls.models.loss import MaskLoss, SemLoss
 from mask_pls.models.mink import MinkEncoderDecoder
 from mask_pls.utils.evaluate_panoptic import PanopticEvaluator
-from pytorch_lightning.core.lightning import LightningModule
+# from pytorch_lightning.core.lightning import LightningModule
+from pytorch_lightning import LightningModule
 
 
 class MaskPS(LightningModule):
@@ -77,7 +78,8 @@ class MaskPS(LightningModule):
         torch.cuda.empty_cache()
         return total_loss
 
-    def validation_epoch_end(self, outputs):
+    # def validation_epoch_end(self, outputs):
+    def on_validation_epoch_end(self, outputs):
         bs = self.cfg.TRAIN.BATCH_SIZE
         self.log("metrics/pq", self.evaluator.get_mean_pq(), batch_size=bs)
         self.log("metrics/iou", self.evaluator.get_mean_iou(), batch_size=bs)

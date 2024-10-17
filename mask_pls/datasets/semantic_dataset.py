@@ -296,7 +296,8 @@ class MaskSemanticDataset(Dataset):
             ]
         # things masks
         ins_sems = np.where(ins_labels == 0, 0, sem_labels)
-        _ins_labels = ins_sems + ((ins_labels << 16) & 0xFFFF0000).reshape(-1, 1)
+        # _ins_labels = ins_sems + ((ins_labels << 16) & 0xFFFF0000).reshape(-1, 1)
+        _ins_labels = ins_sems + ((ins_labels.astype(np.int64) << 16) & 0xFFFF0000).reshape(-1, 1)
         things_ids, th_idx, th_cnt = np.unique(
             _ins_labels[:, 0], return_index=True, return_counts=True
         )

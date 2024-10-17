@@ -8,7 +8,7 @@ TRAIN:
     MAX_EPOCH: 100
     BATCH_SIZE: 1
     BATCH_ACC: 4
-    NUM_WORKERS: 6
+    NUM_WORKERS: 2 #6
     N_GPUS: -1
 
     AUG: True
